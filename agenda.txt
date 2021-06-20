@@ -2,3 +2,6 @@ sebastian,12345,455221
 sebastian,855,67
 lorena,4545454,545454
 Mery,753223,5455
+juan,12,1234
+,,
+manuel romero,1072,12303123

@@ -18,7 +18,7 @@ def Listar (agenda):
 def ListarBuscar (agenda):
     os.system('cls')
     if (len(agenda)>0):
-        nombre = input('Nombre: ')
+        nombre = input('Letra: ')
         coincidencias = 0
         for contacto, datos in agenda.items():
             if nombre in contacto:
@@ -35,11 +35,19 @@ def ListarBuscar (agenda):
 
 def AgregarBeneficiario (agenda,nombre_archivo):
     os.system('cls')
-    nombre = input('Nombre: ')
-    if agenda.get(nombre):
+
+    cedula = (input ("Cedula:"))
+
+    for contacto, datos in agenda.items():
+        if cedula == datos[0]:
+            validacion=True
+        else:
+            validacion=False
+  
+    if validacion==True:
         print('Usuario ya registrado')
     else: 
-        cedula = input ('Cedula: ')
+        nombre = input('Nombre: ')
         celular = input ('Celular : ') 
         agenda.setdefault(nombre,(cedula,celular))
         with open ("C:/Users/sebastian/Desktop/Lore/agenda.txt", 'a') as archivo:
@@ -64,8 +72,14 @@ def BuscarBeneficiario (agenda):
     else:
         print('No hay usuarios ')
 
-def BorrarBeneficiario ():
-    print ()
+def BorrarBeneficiario (agenda):
+    cedula = (input ("Cedula:"))
+    for contacto, datos in agenda.items():
+        if cedula == datos[0]:
+           val= agenda.pop(contacto)
+        else:
+            print()
+
 #----------------------- OTRAS FUNSIONES
 def salir ():
     print()
@@ -119,6 +133,7 @@ def main ():
             BuscarBeneficiario (agenda)
         if (opcion == 5):
             print ("Digite la cedula del beneficiario a borrar:")
+            BorrarBeneficiario (agenda)
         if (opcion == 6):
             salir = True
 

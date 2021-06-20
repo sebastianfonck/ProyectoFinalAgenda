@@ -1,12 +1,9 @@
-#------------------- LIBRERIAS ----------------
-import os
-from pathlib import Path
 
 #------------------- VARIABLES 
 
 #-------------------------- FUNSIONES CRUD -------------------------------
 def Listar (agenda):
-    os.system('cls')
+    
     if len(agenda)>0:
         for contacto, datos in agenda.items():
             print(contacto)
@@ -16,12 +13,21 @@ def Listar (agenda):
         print('No hay usuarios ')
 
 def ListarBuscar (agenda):
-    os.system('cls')
+    
+
     if (len(agenda)>0):
         nombre = input('Letra: ')
         coincidencias = 0
+        
         for contacto, datos in agenda.items():
-            if nombre in contacto:
+
+            words = contacto.split(' ',0)
+            character = ''
+
+            for word in words:
+                character += word[0]
+ 
+            if nombre in character[0]:
                 print(contacto)
                 print(datos[0])
                 print(datos[1])
@@ -34,8 +40,8 @@ def ListarBuscar (agenda):
         print('No hay usuarios ')
 
 def AgregarBeneficiario (agenda,nombre_archivo):
-    os.system('cls')
-
+    
+    validacion=False
     cedula = (input ("Cedula:"))
 
     for contacto, datos in agenda.items():
@@ -55,12 +61,12 @@ def AgregarBeneficiario (agenda,nombre_archivo):
         print('Contacto agregado')
 
 def BuscarBeneficiario (agenda):  
-    os.system('cls')
+    
     if (len(agenda)>0):
         nombre = input('Nombre: ')
         coincidencias = 0
         for contacto, datos in agenda.items():
-            if nombre in contacto:
+            if nombre == contacto:
                 print(contacto)
                 print(datos[0])
                 print(datos[1])
@@ -74,9 +80,9 @@ def BuscarBeneficiario (agenda):
 
 def BorrarBeneficiario (agenda):
     cedula = (input ("Cedula:"))
-    for contacto, datos in agenda.items():
+    for contacto, datos in agenda.items() :
         if cedula == datos[0]:
-           val= agenda.pop(contacto)
+            print(contacto)
         else:
             print()
 
@@ -87,10 +93,17 @@ def error():
     print()
 
 def CrearArchivo (agenda,nombre_archivo):
-    fileName = r"C:/Users/sebastian/Desktop/Lore/agenda.txt"
-    fileObj = Path(fileName)
-    fileObj.is_file()
-    if(fileObj.is_file()==False):
+    
+    try:
+        with open(nombre_archivo, 'r') :
+            v= True
+    except FileNotFoundError as e:
+        v= False
+    except IOError as e:
+        v= False
+
+
+    if(v==False):
         file = open("C:/Users/sebastian/Desktop/Lore/agenda.txt", "w")
     else :
         with open(nombre_archivo, 'r') as archivo:
